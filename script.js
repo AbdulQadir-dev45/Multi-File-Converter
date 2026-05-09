@@ -345,28 +345,60 @@ async function imageToText() {
 }
 
 // =============================
-// REMOVE BACKGROUND
+// REMOVE BACKGROUND (REMOVE.BG API)
 // =============================
 async function removeBackground() {
   if (!file) return alert("Select image first");
 
-  if (!window.removeBackgroundFromImage) {
-    return alert("Background remover not loaded");
+  try {
+    updateProgress(20);
+
+    const formData = new FormData();
+    formData.append("image_file", file);
+    formData.append("size", "auto");
+
+    const response = await fetch(
+      "https://api.remove.bg/v1.0/removebg",
+      {
+        method: "POST",
+        headers: {
+          "X-Api-Key": "PniK1JBGweuVB6ueoTdJdofL"
+        },
+        body: formData
+      }
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(errorText);
+      return alert("Background remove failed");
+    }
+
+    updateProgress(80);
+
+    const blob = await response.blob();
+
+    updateProgress(100);
+
+    const imgUrl = URL.createObjectURL(blob);
+
+    preview.innerHTML = `
+      <img 
+        src="${imgUrl}" 
+        style="
+          max-width:250px;
+          border-radius:12px;
+          margin-top:10px;
+        "
+      >
+    `;
+
+    showDownload(imgUrl, "transparent.png");
+
+  } catch (err) {
+    console.error(err);
+    alert("Error removing background");
   }
-
-  updateProgress(30);
-
-  const url = URL.createObjectURL(file);
-
-  const blob = await window.removeBackgroundFromImage(url);
-
-  updateProgress(100);
-
-  const imgUrl = URL.createObjectURL(blob);
-
-  preview.innerHTML = `<img src="${imgUrl}" style="max-width:250px;border-radius:12px">`;
-
-  showDownload(imgUrl, "transparent.png");
 }
 
 // =============================
