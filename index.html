@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>File Converter Pro+</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- JS Libraries -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+  <!-- ZIP LIBRARY -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- OCR LIBRARY -->
+  <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+  <!-- BACKGROUND REMOVER AI -->
+  <script type="module">
+    import { removeBackground } from "https://cdn.jsdelivr.net/npm/@imgly/background-removal/+esm";
+
+    window.removeBackgroundFromImage = async function (imageURL) {
+      return await removeBackground(imageURL);
+    };
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+      <h2><i class="fa-solid fa-bolt"></i>File Converter</h2>
+      <button class="themeBtn" id="themeBtn">🌙</button>
+
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <h1>Convert Files Instantly</h1>
+      <p>Fast • Modern • Multi Format</p>
+
+    </section>
+
+    <!-- TOOLS -->
+    <div class="tools">
+
+      <div class="tool active" data-type="img-pdf">Image → PDF (Batch)</div>
+
+      <div class="tool" data-type="pdf-img">PDF → Image (ZIP)</div>
+
+      <div class="tool" data-type="png-jpg">PNG → JPG</div>
+
+      <div class="tool" data-type="jpg-png">JPG → PNG</div>
+
+      <div class="tool" data-type="png-webp">PNG → WEBP</div>
+
+      <div class="tool" data-type="jpg-webp">JPG → WEBP</div>
+
+      <div class="tool" data-type="bg-remove">Remove Background</div>
+
+      <div class="tool" data-type="text-img">Text → Image</div>
+
+      <div class="tool" data-type="img-text">Image → Text (OCR)</div>
+
+      <div class="tool" data-type="text-pdf">Text → PDF</div>
+
+      <div class="tool" data-type="compress-img">Compress Image</div>
+
+      <div class="tool" data-type="compress-pdf">Compress PDF</div>
+
+    </div>
+
+    <!-- TEXT -->
+    <textarea id="textInput"placeholder="Write text here..."></textarea>
+
+    <!-- UPLOAD -->
+    <div class="uploadBox" id="dropzone">
+
+      <i class="fa-solid fa-cloud-arrow-up"></i>
+
+      <p>Drag & Drop or Click</p>
+
+      <input type="file" id="fileInput" multiple />
+
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview" id="preview"></div>
+
+    <!-- INFO -->
+    <div class="info" id="fileInfo"></div>
+
+    <!-- PROGRESS -->
+    <div class="progressWrap" id="progressWrap">
+
+      <div class="progressBar" id="progressBar"></div>
+
+    </div>
+
+    <!-- FILE NAME -->
+    <input type="text" id="fileName" placeholder="Enter output file name (optional)" />
+
+    <!-- BUTTON -->
+    <button class="mainBtn" onclick="convertFile()"> Convert Now </button>
+
+    <!-- DOWNLOAD -->
+    <a id="downloadBtn" class="downloadBtn"> Download </a>
+
+  </div>
+
+  <!-- MAIN JS -->
+  <script defer src="script.js"></script>
+
+</body>
+
+</html>
